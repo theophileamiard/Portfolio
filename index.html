@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Théophile Amiard — Portfolio: Film, Animation, Graphic Design, Montreal">
+<title>Théophile Amiard — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Bebas+Neue&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ========== RESET & BASE ========== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#0a0a0a;color:#e8e4df;font-family:'Space Mono',monospace;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+
+/* ========== CSS VARIABLES ========== */
+:root{
+  --red:#c42b2b;
+  --orange:#e8822a;
+  --cream:#e8e4df;
+  --dark:#0a0a0a;
+  --gray:#888;
+}
+
+/* ========== SCROLLBAR ========== */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--dark)}
+::-webkit-scrollbar-thumb{background:var(--red);border-radius:3px}
+
+/* ========== FIXED NAV ========== */
+.nav-fixed{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:12px 30px;
+  background:rgba(10,10,10,0.92);backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(255,255,255,0.05);
+  transform:translateY(-100%);transition:transform 0.4s ease;
+}
+.nav-fixed.visible{transform:translateY(0)}
+.nav-fixed .nav-name{font-family:'Permanent Marker',cursive;font-size:1.1rem;letter-spacing:2px;color:var(--cream)}
+.nav-fixed .nav-links{display:flex;gap:24px;align-items:center}
+.nav-fixed .nav-links a{font-size:0.75rem;letter-spacing:3px;text-transform:uppercase;color:var(--gray);transition:color 0.3s}
+.nav-fixed .nav-links a:hover{color:var(--cream)}
+.nav-skull{width:28px;height:28px;object-fit:contain;cursor:pointer;transition:transform 0.3s,filter 0.3s}
+.nav-skull:hover{transform:scale(1.15);filter:brightness(1.3)}
+
+/* ========== HERO ========== */
+.hero{
+  height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:url('images/bg_texture_rouge.jpg') center/cover;
+  opacity:0.07;pointer-events:none;z-index:0;
+}
+.hero>*{position:relative;z-index:1}
+.hero-title{
+  font-family:'Permanent Marker',cursive;
+  font-size:clamp(2rem,6vw,5rem);letter-spacing:6px;
+  text-transform:uppercase;text-align:center;color:var(--cream);
+  opacity:0;animation:fadeUp 1s ease 0.3s forwards;
+}
+.hero-sub{
+  font-size:0.8rem;letter-spacing:6px;text-transform:uppercase;
+  color:var(--gray);margin-top:8px;
+  opacity:0;animation:fadeUp 1s ease 0.6s forwards;
+}
+.skull-nav{
+  display:flex;gap:clamp(30px,8vw,100px);margin-top:60px;
+  align-items:flex-end;opacity:0;animation:fadeUp 1s ease 0.9s forwards;
+}
+.skull-btn{
+  display:flex;flex-direction:column;align-items:center;gap:14px;
+  cursor:pointer;transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+}
+.skull-btn:hover{transform:scale(1.12) translateY(-6px)}
+.skull-btn img{
+  width:clamp(80px,14vw,150px);height:auto;
+  filter:drop-shadow(0 4px 20px rgba(196,43,43,0.25));transition:filter 0.4s;
+}
+.skull-btn:hover img{filter:drop-shadow(0 6px 30px rgba(196,43,43,0.5))}
+.skull-btn span{
+  font-family:'Bebas Neue',sans-serif;font-size:clamp(0.8rem,2vw,1.1rem);
+  letter-spacing:5px;text-transform:uppercase;color:var(--gray);transition:color 0.3s;
+}
+.skull-btn:hover span{color:var(--cream)}
+
+/* ========== SECTIONS ========== */
+.section{min-height:50vh;padding:120px 40px 80px;position:relative}
+/* Subtle background textures per section */
+#films::before{
+  content:'';position:absolute;inset:0;
+  background:url('images/bg_texture_noir.jpg') center/cover;
+  opacity:0.04;pointer-events:none;z-index:0;
+}
+#design::before{
+  content:'';position:absolute;inset:0;
+  background:url('images/bg_texture_rouge.jpg') center/cover;
+  opacity:0.03;pointer-events:none;z-index:0;
+}
+#films>*,#design>*{position:relative;z-index:1}
+.section-title{
+  font-family:'Permanent Marker',cursive;font-size:clamp(2rem,5vw,3.5rem);
+  letter-spacing:4px;margin-bottom:60px;color:var(--cream);
+  position:relative;display:inline-block;
+}
+.section-title::after{
+  content:'';position:absolute;bottom:-8px;left:0;
+  width:60px;height:3px;background:var(--red);
+}
+.sub-title{
+  font-family:'Bebas Neue',sans-serif;font-size:1.3rem;
+  letter-spacing:5px;color:var(--gray);margin:50px 0 30px;text-transform:uppercase;
+}
+
+/* ========== PROJECT GRID ========== */
+.project-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  gap:24px;max-width:1200px;
+}
+.project-card{
+  position:relative;overflow:hidden;border-radius:4px;
+  cursor:pointer;aspect-ratio:4/5;background:#111;
+}
+.project-card.transparent-bg{background:transparent}
+.project-card img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94),filter 0.6s;
+}
+.project-card.contain-img img{object-fit:contain;padding:20px}
+.project-card:hover img{transform:scale(1.05);filter:brightness(0.6)}
+.project-card .card-overlay{
+  position:absolute;bottom:0;left:0;right:0;padding:24px;
+  background:linear-gradient(transparent,rgba(0,0,0,0.85));
+  transform:translateY(20px);opacity:0;transition:transform 0.4s,opacity 0.4s;
+}
+.project-card:hover .card-overlay{transform:translateY(0);opacity:1}
+.card-overlay h3{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:3px;color:var(--cream)}
+.card-overlay p{font-size:0.7rem;color:var(--gray);letter-spacing:1px;margin-top:4px;text-transform:uppercase}
+
+/* ========== TRANSPARENT PNG FIX ========== */
+/* blend-screen: pure-black backgrounds disappear on the dark site */
+.blend-screen{mix-blend-mode:screen}
+
+/* ========== ANIMATIONS GRID (Films section) ========== */
+.anim-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+  gap:20px;max-width:1200px;margin-top:20px;
+}
+.anim-grid video{width:100%;border-radius:4px;display:block;aspect-ratio:9/16;object-fit:cover}
+.anim-grid video.landscape{aspect-ratio:16/9}
+
+/* ========== DETAIL OVERLAY ========== */
+.detail-overlay{
+  position:fixed;inset:0;z-index:2000;background:var(--dark);
+  overflow-y:auto;transform:translateY(100%);
+  transition:transform 0.5s cubic-bezier(0.4,0,0.2,1);
+}
+.detail-overlay.open{transform:translateY(0)}
+.detail-close{
+  position:fixed;top:20px;right:30px;z-index:2001;
+  font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:4px;
+  color:var(--gray);cursor:pointer;background:rgba(10,10,10,0.8);
+  padding:8px 16px;border:1px solid rgba(255,255,255,0.1);
+  transition:color 0.3s,border-color 0.3s;
+}
+.detail-close:hover{color:var(--cream);border-color:var(--red)}
+.detail-hero{
+  height:70vh;display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+}
+.detail-hero img{max-height:80%;max-width:80%;object-fit:contain}
+.detail-content{max-width:900px;margin:0 auto;padding:60px 40px 100px}
+.detail-content h2{
+  font-family:'Bebas Neue',sans-serif;font-size:1.6rem;
+  letter-spacing:4px;color:var(--red);margin:50px 0 16px;
+}
+.detail-content p{font-size:0.85rem;line-height:1.8;color:#bbb;margin-bottom:16px}
+.detail-gallery{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:30px 0}
+.detail-gallery img,.detail-gallery video{width:100%;border-radius:3px;display:block}
+.detail-3col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:40px;margin:40px 0}
+.detail-3col h3{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:3px;color:var(--orange);margin-bottom:12px}
+.detail-3col p{font-size:0.78rem;line-height:1.7;color:#999}
+
+/* ========== VIDEO LAYOUT ========== */
+.video-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:30px 0}
+.video-grid video{width:100%;border-radius:4px;display:block}
+.video-solo{max-width:600px;margin:30px auto}
+.video-solo video{width:100%;border-radius:4px;display:block}
+@media(max-width:768px){.video-grid{grid-template-columns:1fr}}
+
+/* ========== NY ANIMATION ========== */
+.ny-animation{width:100%;max-width:500px;aspect-ratio:3/4;margin:30px auto;position:relative}
+.ny-animation img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 0.15s}
+.ny-animation img.active{opacity:1}
+
+/* ========== CONTACT ========== */
+.contact-section{
+  min-height:100vh;display:flex;flex-direction:column;
+  justify-content:center;align-items:center;padding:80px 40px;
+  position:relative;
+}
+.contact-section::before{
+  content:'';position:absolute;inset:0;
+  background:url('images/bg_texture_rouge.jpg') center/cover;
+  opacity:0.04;pointer-events:none;
+}
+.contact-section>*{position:relative;z-index:1}
+.contact-links{display:flex;flex-direction:column;gap:24px;margin-top:40px}
+.contact-link{
+  display:flex;align-items:center;gap:16px;
+  font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:4px;
+  color:var(--gray);transition:color 0.3s,transform 0.3s;cursor:pointer;
+}
+.contact-link:hover{color:var(--cream);transform:translateX(8px)}
+.contact-link .contact-icon{width:20px;text-align:center;color:var(--red)}
+
+/* ========== FOOTER ========== */
+footer{
+  padding:30px 40px;text-align:center;font-size:0.65rem;
+  letter-spacing:3px;color:#444;border-top:1px solid rgba(255,255,255,0.04);
+}
+
+/* ========== ANIMATIONS ========== */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(30px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.fade-in{opacity:0;transform:translateY(40px);transition:opacity 0.8s ease,transform 0.8s ease}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+
+/* ========== RESPONSIVE ========== */
+@media(max-width:768px){
+  .section{padding:100px 20px 60px}
+  .project-grid{grid-template-columns:1fr 1fr;gap:12px}
+  .detail-3col{grid-template-columns:1fr;gap:24px}
+  .detail-gallery{grid-template-columns:1fr}
+  .skull-nav{gap:20px;margin-top:40px}
+  .nav-fixed .nav-links{gap:14px}
+  .nav-fixed .nav-links a{font-size:0.65rem;letter-spacing:2px}
+  .anim-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:480px){
+  .project-grid{grid-template-columns:1fr}
+  .skull-btn img{width:70px}
+  .anim-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ================================================================
+     FIXED NAV
+     ================================================================ -->
+<nav class="nav-fixed" id="fixedNav">
+  <a href="#hero" class="nav-name">THÉOPHILE AMIARD</a>
+  <div class="nav-links">
+    <a href="#films">Films</a>
+    <a href="#design">Design</a>
+    <a href="#contact">Contact</a>
+    <img src="images/skulls/crane_millieu.png" class="nav-skull" onclick="scrollToTop()" alt="skull">
+  </div>
+</nav>
+
+<!-- ================================================================
+     HERO
+     ================================================================ -->
+<section class="hero" id="hero">
+  <h1 class="hero-title">Théophile Amiard</h1>
+  <p class="hero-sub">Design — Film — Animation</p>
+  <div class="skull-nav">
+    <a class="skull-btn" href="#films">
+      <img src="images/skulls/crane_gauche.png" alt="Films & Animation">
+      <span>Films</span>
+    </a>
+    <a class="skull-btn" href="#design">
+      <img src="images/skulls/crane_millieu.png" alt="Projects">
+      <span>Projects</span>
+    </a>
+    <a class="skull-btn" href="#contact">
+      <img src="images/skulls/crane_droite.png" alt="Contact">
+      <span>Contact</span>
+    </a>
+  </div>
+</section>
+
+<!-- ================================================================
+     FILMS & ANIMATION
+     ================================================================ -->
+<section class="section" id="films">
+  <h2 class="section-title fade-in">Films & Animation</h2>
+  <div class="project-grid">
+
+    <div class="project-card fade-in" onclick="openDetail('offbeat')">
+      <img src="images/offbeat/bloom_moth_red.png" alt="OFF-BEAT" loading="lazy">
+      <div class="card-overlay">
+        <h3>OFF-BEAT</h3>
+        <p>Short Film — Mixed Media — 2025</p>
+      </div>
+    </div>
+
+    <div class="project-card fade-in" onclick="openDetail('newyork')">
+      <img src="images/newyork/cover.png" alt="New York" loading="lazy">
+      <div class="card-overlay">
+        <h3>NEW YORK</h3>
+        <p>Photography & Typography — 2025</p>
+      </div>
+    </div>
+
+    <div class="project-card fade-in" onclick="openDetail('dontbeafraid')" style="background:#1a0a0a;">
+      <img src="images/shortfilms/dont_be_afraid/still_1.png" alt="Don't Be Afraid" loading="lazy">
+      <div class="card-overlay">
+        <h3>DON'T BE AFRAID</h3>
+        <p>Short Film — Animation — 2025</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Looping animations -->
+  <h3 class="sub-title fade-in">Animations</h3>
+  <div class="anim-grid fade-in">
+    <video autoplay muted loop playsinline title="Skull Pack — Yin-Yang">
+      <source src="images/skulls/skull_pack_yingyang.mp4" type="video/mp4">
+    </video>
+    <video autoplay muted loop playsinline title="OFF-BEAT — Sienna Vine">
+      <source src="images/offbeat/anim_sienna.mp4" type="video/mp4">
+    </video>
+    <video autoplay muted loop playsinline title="OFF-BEAT — Pablo Corps">
+      <source src="images/offbeat/anim_pablo.mp4" type="video/mp4">
+    </video>
+    <video autoplay muted loop playsinline title="OFF-BEAT — Eyes">
+      <source src="images/offbeat/anim_yeux.mp4" type="video/mp4">
+    </video>
+  </div>
+</section>
+
+<!-- ================================================================
+     GRAPHIC DESIGN
+     ================================================================ -->
+<section class="section" id="design">
+  <h2 class="section-title fade-in">Graphic Design</h2>
+
+  <!-- ---- SKULL PACK ---- -->
+  <div class="project-grid" style="margin-bottom:60px;">
+    <div class="project-card fade-in transparent-bg" onclick="openDetail('skullpack')">
+      <img src="images/skulls/skull_pack_green.png" alt="Skull Pack" class="blend-screen" loading="lazy">
+      <div class="card-overlay">
+        <h3>SKULL PACK</h3>
+        <p>Illustration — Personal Project</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ---- POSTERS ---- -->
+  <h3 class="sub-title fade-in">Posters</h3>
+  <div class="project-grid">
+
+    <div class="project-card fade-in" onclick="openDetail('skids')">
+      <img src="images/posters/skids.png" alt="SKIDS" loading="lazy">
+      <div class="card-overlay">
+        <h3>SKIDS</h3>
+        <p>Film Poster — Fantasia 2025</p>
+      </div>
+    </div>
+
+    <div class="project-card fade-in" onclick="openDetail('placemusique')">
+      <img src="images/posters/place_musique.png" alt="Place à la Musique" loading="lazy">
+      <div class="card-overlay">
+        <h3>PLACE À LA MUSIQUE</h3>
+        <p>Event Poster — Ad Campaign</p>
+      </div>
+    </div>
+
+    <div class="project-card fade-in" onclick="openDetail('decompositions')">
+      <img src="images/posters/decompositions.png" alt="Décompositions" loading="lazy">
+      <div class="card-overlay">
+        <h3>DÉCOMPOSITIONS</h3>
+        <p>Exhibition Poster — 4th Space</p>
+      </div>
+    </div>
+
+    <div class="project-card fade-in" onclick="openDetail('stress')" style="background:#f0f0f0;">
+      <img src="images/posters/stress.png" alt="Stress" loading="lazy">
+      <div class="card-overlay">
+        <h3>STRESS</h3>
+        <p>Lettering</p>
+      </div>
+    </div>
+
+    <div class="project-card fade-in" onclick="openDetail('yourcity')">
+      <img src="images/posters/your_city_your_rules.png" alt="Your City Your Rules" loading="lazy">
+      <div class="card-overlay">
+        <h3>YOUR CITY YOUR RULES</h3>
+        <p>Lettering</p>
+      </div>
+    </div>
+
+    <div class="project-card fade-in" onclick="openDetail('faceaface')" style="background:#6a0dad;">
+      <img src="images/posters/face_a_face.png" alt="Face à Face" loading="lazy">
+      <div class="card-overlay">
+        <h3>FACE À FACE</h3>
+        <p>Competition Poster — JIUC</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ---- LOGOS & IDENTITY ---- -->
+  <h3 class="sub-title fade-in">Logos & Identity</h3>
+  <div class="project-grid">
+
+    <div class="project-card fade-in" onclick="openDetail('altitude')" style="background:#888;">
+      <img src="images/logos/altitude_club.png" alt="Altitude" loading="lazy">
+      <div class="card-overlay">
+        <h3>ALTITUDE</h3>
+        <p>Logo Design & Brand Identity</p>
+      </div>
+    </div>
+
+    <div class="project-card fade-in contain-img" onclick="openDetail('resurgence')" style="background:#0d0d0d;">
+      <img src="images/logos/resurgence.png" alt="Résurgence" loading="lazy">
+      <div class="card-overlay">
+        <h3>RÉSURGENCE</h3>
+        <p>Typography</p>
+      </div>
+    </div>
+
+    <div class="project-card fade-in contain-img" onclick="openDetail('logosymbol')" style="background:#e8922a;">
+      <img src="images/logos/symbol.png" alt="Symbol" loading="lazy">
+      <div class="card-overlay">
+        <h3>SYMBOL</h3>
+        <p>Logo Design — Concordia</p>
+      </div>
+    </div>
+
+    <div class="project-card fade-in contain-img" onclick="openDetail('ikmlogo')" style="background:#5a3c2a;">
+      <img src="images/logos/ofm.png" alt="IKM" loading="lazy">
+      <div class="card-overlay">
+        <h3>IKM</h3>
+        <p>Logo Design</p>
+      </div>
+    </div>
+
+    <div class="project-card fade-in contain-img" onclick="openDetail('ecofis')" style="background:#f0ebe0;">
+      <img src="images/logos/eco_fis.png" alt="ÉCO FIS" loading="lazy">
+      <div class="card-overlay" style="background:linear-gradient(transparent,rgba(220,210,195,0.9));">
+        <h3 style="color:#111;">ÉCO FIS</h3>
+        <p style="color:#555;">Logo Design</p>
+      </div>
+    </div>
+
+    <div class="project-card fade-in contain-img" onclick="openDetail('falllogo')" style="background:#555;">
+      <img src="images/logos/fall.png" alt="FALL" loading="lazy">
+      <div class="card-overlay">
+        <h3>FALL</h3>
+        <p>Logo Design</p>
+      </div>
+    </div>
+
+    <div class="project-card fade-in contain-img" onclick="openDetail('graphicdesignlogo')" style="background:#f0ebe0;">
+      <img src="images/logos/graphic_design.png" alt="Graphic Design" loading="lazy">
+      <div class="card-overlay" style="background:linear-gradient(transparent,rgba(220,210,195,0.9));">
+        <h3 style="color:#111;">GRAPHIC DESIGN</h3>
+        <p style="color:#555;">Logo Design</p>
+      </div>
+    </div>
+
+    <div class="project-card fade-in contain-img" onclick="openDetail('hkgorillas')" style="background:#f0ebe0;">
+      <img src="images/logos/hk_gorillas.png" alt="HK Gorillas" loading="lazy">
+      <div class="card-overlay" style="background:linear-gradient(transparent,rgba(220,210,195,0.9));">
+        <h3 style="color:#111;">HK GORILLAS</h3>
+        <p style="color:#555;">Sports Logo</p>
+      </div>
+    </div>
+
+    <div class="project-card fade-in contain-img" onclick="openDetail('undecided')" style="background:#f0faf8;">
+      <img src="images/logos/undecided.png" alt="Undecided" loading="lazy">
+      <div class="card-overlay" style="background:linear-gradient(transparent,rgba(200,240,235,0.9));">
+        <h3 style="color:#111;">UNDECIDED</h3>
+        <p style="color:#555;">Logo Design</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ---- EDITORIAL ---- -->
+  <h3 class="sub-title fade-in">Editorial</h3>
+  <div class="project-grid">
+
+    <div class="project-card fade-in" onclick="openDetail('laviepotable')">
+      <img src="images/editorial/laviepotable_zine.png" alt="Laviepotable" loading="lazy">
+      <div class="card-overlay">
+        <h3>LAVIEPOTABLE</h3>
+        <p>Zine Design</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================================================================
+     CONTACT
+     ================================================================ -->
+<section class="contact-section" id="contact">
+  <h2 class="section-title fade-in">Get in Touch</h2>
+  <div class="contact-links fade-in">
+    <a class="contact-link" href="mailto:theophile.amiard@gmail.com">
+      <span class="contact-icon">✉</span> theophile.amiard@gmail.com
+    </a>
+    <a class="contact-link" href="https://www.instagram.com/theophileamiard/" target="_blank">
+      <span class="contact-icon">◎</span> Instagram
+    </a>
+    <a class="contact-link" href="https://www.youtube.com/channel/UCTD8KQKVjTV_QHLubUY5jmg" target="_blank">
+      <span class="contact-icon">▶</span> YouTube
+    </a>
+    <a class="contact-link" href="https://www.linkedin.com/in/th%C3%A9ophile-amiard-790674262/" target="_blank">
+      <span class="contact-icon">■</span> LinkedIn
+    </a>
+  </div>
+  <div style="margin-top:60px;">
+    <img src="images/skulls/crane_millieu.png" style="width:60px;opacity:0.3;" alt="">
+  </div>
+</section>
+
+<footer>© 2026 THÉOPHILE AMIARD — ALL RIGHTS RESERVED</footer>
+
+<!-- ================================================================
+     DETAIL OVERLAYS
+     ================================================================ -->
+
+<!-- ============ OFF-BEAT ============ -->
+<div class="detail-overlay" id="detail-offbeat">
+  <div class="detail-close" onclick="closeDetail('offbeat')">✕ CLOSE</div>
+  <div class="detail-hero" style="background:linear-gradient(180deg,#1a1208 0%,#0a0a0a 100%);">
+    <img src="images/offbeat/bloom_moth_red.png" alt="OFF-BEAT">
+  </div>
+  <div class="detail-content">
+    <h1 style="font-family:'Permanent Marker',cursive;font-size:clamp(2.5rem,6vw,4rem);letter-spacing:4px;margin-bottom:8px;">OFF-BEAT</h1>
+    <p style="color:var(--gray);font-size:0.75rem;letter-spacing:4px;text-transform:uppercase;">Short Film — Mixed Media — Montreal, 2025</p>
+
+    <h2>CONCEPT</h2>
+    <p>OFF-BEAT explores the emotional cost of ambition through the story of a rising Montreal garage band destabilized by sudden success and a mysterious death. As friendships are strained and guilt takes root, the film asks: how far can we chase our dreams before losing ourselves?</p>
+
+    <div class="detail-3col">
+      <div>
+        <h3>FORM</h3>
+        <p>The project adopts a non-linear structure driven by an original song that functions simultaneously as narrative, music video, and emotional backbone. Live-action footage is interwoven with hand-drawn animation, graphic design, and fabricated media elements.</p>
+      </div>
+      <div>
+        <h3>THEMES</h3>
+        <p>Recurring organic motifs such as vines spreading across bodies, instruments, and screens visualize the protagonist's internal collapse. They symbolize growth turning invasive, creativity becoming obsession, and guilt that refuses resolution.</p>
+      </div>
+      <div>
+        <h3>ANIMATION</h3>
+        <p>Animation appears during moments of heightened emotion or memory, representing authenticity and inner truth. These segments serve as poetic interruptions — windows into the characters' subconscious feelings of nostalgia, guilt, and longing.</p>
+      </div>
+    </div>
+
+    <h2>SYNOPSIS</h2>
+    <p>Set in early-2000s Montreal, OFF-BEAT follows Bloom, a rising grunge garage band. The story unfolds as an apology letter from the singer Sienna Rae to her former drummer Chase Stovsky — a confession shaped by guilt, memory, and the weight of a tragedy that forever changed their band.</p>
+    <p>Before the tragedy, Bloom experiences its first taste of success. But beneath the noise and applause, tension brews. Sienna makes the painful decision to fire Chase, whose arrogance and self-destructive habits threaten their future. That same night, Chase dies under mysterious circumstances.</p>
+    <p>Through its fractured timeline, emotional and investigative lens, OFF-BEAT is a raw exploration of how far people will go to chase their dreams and how we can lose ourselves in the process.</p>
+
+    <!-- Graphic design — illus_14 centered/prominent, then brown tones, then blue -->
+    <h2>GRAPHIC DESIGN</h2>
+    <div style="margin:30px 0;">
+      <img src="images/offbeat/illus_14.png" alt="BLOOM — Artwork" loading="lazy" style="width:100%;max-width:600px;margin:0 auto;border-radius:3px;">
+    </div>
+    <div class="detail-gallery" style="margin-top:20px;">
+      <img src="images/offbeat/illus_16.png" alt="BLOOM — Event poster 1" loading="lazy">
+      <img src="images/offbeat/illus_17.png" alt="BLOOM — Title card" loading="lazy">
+    </div>
+    <div class="detail-gallery" style="margin-top:12px;">
+      <img src="images/offbeat/illus_1.png" alt="BLOOM — Blue poster" loading="lazy">
+      <img src="images/offbeat/illus_13.png" alt="BLOOM — Blue variant" loading="lazy">
+    </div>
+
+    <!-- Instrument animations 2×2 -->
+    <h2>BAND ANIMATIONS</h2>
+    <div class="video-grid">
+      <video autoplay muted loop playsinline>
+        <source src="images/offbeat/anim_batterie.mp4" type="video/mp4">
+      </video>
+      <video autoplay muted loop playsinline>
+        <source src="images/offbeat/anim_guitare.mp4" type="video/mp4">
+      </video>
+      <video autoplay muted loop playsinline>
+        <source src="images/offbeat/anim_mike.mp4" type="video/mp4">
+      </video>
+      <video autoplay muted loop playsinline>
+        <source src="images/offbeat/anim_bass.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <h2>ANIMATION EXCERPTS</h2>
+    <div class="video-grid">
+      <video autoplay muted loop playsinline>
+        <source src="images/offbeat/anim_sienna.mp4" type="video/mp4">
+      </video>
+      <video autoplay muted loop playsinline>
+        <source src="images/offbeat/anim_pablo.mp4" type="video/mp4">
+      </video>
+      <video autoplay muted loop playsinline>
+        <source src="images/offbeat/anim_yeux.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <!-- Production stills — swapped as requested -->
+    <h2>PRODUCTION STILLS</h2>
+    <div class="detail-gallery">
+      <img src="images/offbeat/screenshot_1.png" alt="Still 1" loading="lazy">
+      <img src="images/offbeat/screenshot_7.png" alt="Still 2" loading="lazy">
+      <img src="images/offbeat/screenshot_5.png" alt="Still 3" loading="lazy">
+      <img src="images/offbeat/screenshot_4.png" alt="Still 4" loading="lazy">
+    </div>
+
+    <h2>THE TEAM</h2>
+    <p>A collective project by Carter Griffiths, Marion Deraspe, and Théophile Amiard — three emerging Montreal-based artists working at the crossroads of music, film, and intermedia art. Carter brought the musical backbone and the real-life story that inspired it. Marion shaped the film's emotional and visual language. Théophile bridged the visual, narrative, and conceptual dimensions through animation and design.</p>
+
+    <p style="margin-top:30px;">
+      <a href="https://www.youtube.com/channel/UCTD8KQKVjTV_QHLubUY5jmg" target="_blank" style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:4px;color:var(--red);border-bottom:1px solid var(--red);padding-bottom:2px;">▶ WATCH ON YOUTUBE</a>
+    </p>
+  </div>
+</div>
+
+<!-- ============ SKULL PACK ============ -->
+<div class="detail-overlay" id="detail-skullpack">
+  <div class="detail-close" onclick="closeDetail('skullpack')">✕ CLOSE</div>
+  <div class="detail-hero" style="background:#0a0a0a;">
+    <img src="images/skulls/skull_pack_logo.png" alt="Skull Pack" style="max-height:55%;mix-blend-mode:screen;">
+  </div>
+  <div class="detail-content">
+    <h1 style="font-family:'Permanent Marker',cursive;font-size:clamp(2.5rem,6vw,4rem);letter-spacing:4px;margin-bottom:8px;">SKULL PACK</h1>
+    <p style="color:var(--gray);font-size:0.75rem;letter-spacing:4px;text-transform:uppercase;">Illustration — Personal Project — Ongoing</p>
+
+    <h2>CONCEPT</h2>
+    <p>Skull Pack is an ongoing personal illustration project centered around a recurring skull character. The skulls serve as a signature visual motif — appearing across illustrations, stickers, wallpapers, character designs, and merchandise concepts.</p>
+
+    <div class="detail-3col">
+      <div>
+        <h3>ORIGINS</h3>
+        <p>Born from sketchbook doodles and graffiti-influenced illustration, the skull character became a recurring element across all of Théophile's work — from navigation icons to standalone art pieces.</p>
+      </div>
+      <div>
+        <h3>STYLE</h3>
+        <p>The visual language blends cartoon illustration with street art sensibilities. Clean shapes with glossy highlights, bold outlines, and a playful-yet-dark attitude.</p>
+      </div>
+      <div>
+        <h3>APPLICATIONS</h3>
+        <p>Stickers, phone wallpapers, character designs, clothing mockups, brand identity elements, and web navigation.</p>
+      </div>
+    </div>
+
+    <!-- Color variants of the logo -->
+    <h2>COLOUR VARIANTS</h2>
+    <div style="display:flex;gap:20px;justify-content:center;align-items:center;margin:40px 0;flex-wrap:wrap;">
+      <img src="images/skulls/skull_pack_logo.png" alt="Original" style="width:160px;mix-blend-mode:screen;" loading="lazy">
+      <img src="images/skulls/skull_pack_peach.png" alt="Peach" style="width:160px;mix-blend-mode:screen;" loading="lazy">
+      <img src="images/skulls/skull_pack_green.png" alt="Green" style="width:160px;mix-blend-mode:screen;" loading="lazy">
+      <img src="images/skulls/skull_pack_tan.png"   alt="Tan"   style="width:160px;mix-blend-mode:screen;" loading="lazy">
+    </div>
+
+    <!-- Three skull characters -->
+    <h2>THE SKULLS</h2>
+    <div style="display:flex;gap:30px;justify-content:center;align-items:center;margin:40px 0;flex-wrap:wrap;">
+      <img src="images/skulls/crane_gauche.png"  alt="Skull left"  style="width:150px;" loading="lazy">
+      <img src="images/skulls/crane_millieu.png" alt="Skull front" style="width:150px;" loading="lazy">
+      <img src="images/skulls/crane_droite.png"  alt="Skull right" style="width:150px;" loading="lazy">
+    </div>
+
+    <h2>ANIMATION</h2>
+    <div class="video-solo">
+      <video autoplay muted loop playsinline>
+        <source src="images/skulls/skull_pack_yingyang.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+</div>
+
+<!-- ============ NEW YORK ============ -->
+<div class="detail-overlay" id="detail-newyork">
+  <div class="detail-close" onclick="closeDetail('newyork')">✕ CLOSE</div>
+  <div class="detail-hero" style="background:#1a1a1a;">
+    <div class="ny-animation" id="nyAnim">
+      <!-- All 10 frames: 0-5 are the animated typography, 6-9 are the statue photography -->
+      <img src="images/newyork/frame_0.png" class="ny-frame active" alt="NY 0">
+      <img src="images/newyork/frame_1.png" class="ny-frame" alt="NY 1">
+      <img src="images/newyork/frame_2.png" class="ny-frame" alt="NY 2">
+      <img src="images/newyork/frame_3.png" class="ny-frame" alt="NY 3">
+      <img src="images/newyork/frame_4.png" class="ny-frame" alt="NY 4">
+      <img src="images/newyork/frame_5.png" class="ny-frame" alt="NY 5">
+      <img src="images/newyork/frame_6.png" class="ny-frame" alt="NY 6">
+      <img src="images/newyork/frame_7.png" class="ny-frame" alt="NY 7">
+      <img src="images/newyork/frame_8.png" class="ny-frame" alt="NY 8">
+      <img src="images/newyork/frame_9.png" class="ny-frame" alt="NY 9">
+    </div>
+  </div>
+  <div class="detail-content">
+    <h1 style="font-family:'Permanent Marker',cursive;font-size:clamp(2.5rem,6vw,4rem);letter-spacing:4px;margin-bottom:8px;">NEW YORK</h1>
+    <p style="color:var(--gray);font-size:0.75rem;letter-spacing:4px;text-transform:uppercase;">Photography & Typography — 2025/2026</p>
+    <p>A photographic and typographic exploration of New York City. Shot on Canon EOS R50, 18-45 and DJI Osmo Action 4 during New Year's in New York — a collaboration between Théophile Amiard and Clément Amiard, December 2025 to January 2026.</p>
+    <p>The series pairs bold, stretched typography with photographs of the Statue of Liberty, creating a layered visual dialogue between the iconic monument and the energy of the city.</p>
+    <div class="detail-gallery">
+      <img src="images/newyork/statue_1.png" alt="NY — Statue of Liberty" loading="lazy">
+      <img src="images/newyork/statue_2.png" alt="NY — Statue of Liberty" loading="lazy">
+      <img src="images/newyork/statue_3.png" alt="NY — Statue of Liberty" loading="lazy">
+      <img src="images/newyork/statue_4.png" alt="NY — Statue of Liberty" loading="lazy">
+    </div>
+  </div>
+</div>
+
+<!-- ============ DON'T BE AFRAID ============ -->
+<div class="detail-overlay" id="detail-dontbeafraid">
+  <div class="detail-close" onclick="closeDetail('dontbeafraid')">✕ CLOSE</div>
+  <div class="detail-hero" style="background:#100808;">
+    <img src="images/shortfilms/dont_be_afraid/still_1.png" alt="Don't Be Afraid">
+  </div>
+  <div class="detail-content">
+    <h1 style="font-family:'Permanent Marker',cursive;font-size:clamp(2.5rem,6vw,4rem);letter-spacing:4px;margin-bottom:8px;">DON'T BE AFRAID</h1>
+    <p style="color:var(--gray);font-size:0.75rem;letter-spacing:4px;text-transform:uppercase;">Short Film — Animation — 2025</p>
+    <p style="color:var(--gray);font-size:0.75rem;letter-spacing:3px;text-transform:uppercase;">Kaitlyn Pepper & Théophile Amiard</p>
+
+    <h2>ABOUT</h2>
+    <p>Through animated depictions of medicinal and real-life scenarios, <em>Don't Be Afraid</em> exposes the corruption of prescription medication and its addictive properties. The film challenges government and medical contradictions surrounding drugs and the healthcare systems that promote or suppress specific remedies.</p>
+    <p>A collaboration between Kaitlyn Pepper and Théophile Amiard, the piece brings awareness to how addictions are mass-produced and the lack of resources to address an opioid crisis initiated by authority.</p>
+
+    <h2>FILM</h2>
+    <div class="video-solo">
+      <video controls playsinline style="width:100%;border-radius:4px;display:block;">
+        <source src="images/shortfilms/dont_be_afraid/dont_be_afraid.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <h2>STILLS</h2>
+    <div class="detail-gallery">
+      <img src="images/shortfilms/dont_be_afraid/still_1.png" alt="Still 1" loading="lazy">
+      <img src="images/shortfilms/dont_be_afraid/still_2.png" alt="Still 2" loading="lazy">
+      <img src="images/shortfilms/dont_be_afraid/still_3.png" alt="Still 3" loading="lazy">
+      <img src="images/shortfilms/dont_be_afraid/still_4.png" alt="Still 4" loading="lazy">
+    </div>
+  </div>
+</div>
+
+<!-- ============ SKIDS ============ -->
+<div class="detail-overlay" id="detail-skids">
+  <div class="detail-close" onclick="closeDetail('skids')">✕ CLOSE</div>
+  <div class="detail-hero" style="background:#0d0d0d;"><img src="images/posters/skids.png" alt="SKIDS"></div>
+  <div class="detail-content">
+    <h1 style="font-family:'Permanent Marker',cursive;font-size:clamp(2rem,4vw,3rem);letter-spacing:4px;margin-bottom:8px;">SKIDS</h1>
+    <p style="color:var(--gray);font-size:0.75rem;letter-spacing:4px;text-transform:uppercase;">Film Poster — Fantasia International Film Festival — 2025</p>
+    <p>Official poster design for SKIDS, a short film by Dylan McAllister. Selected for the Fantasia International Film Festival 2025 Official Selection. The poster captures the neon-drenched, nocturnal atmosphere of the film with a chromatic aberration effect on the title.</p>
+
+    <h2>PROPOSALS</h2>
+    <div class="detail-gallery" style="grid-template-columns:1fr 1fr 1fr;">
+      <img src="images/posters/Skids proposition 1.png" alt="SKIDS — Proposal 1" loading="lazy">
+      <img src="images/posters/Skids proposition 2.png" alt="SKIDS — Proposal 2" loading="lazy">
+      <img src="images/posters/Skids proposition 3.png" alt="SKIDS — Proposal 3" loading="lazy">
+    </div>
+  </div>
+</div>
+
+<!-- ============ STRESS ============ -->
+<div class="detail-overlay" id="detail-stress">
+  <div class="detail-close" onclick="closeDetail('stress')">✕ CLOSE</div>
+  <!-- Dark background for more visual impact -->
+  <div class="detail-hero" style="background:#1a0404;"><img src="images/posters/stress.png" alt="Stress"></div>
+  <div class="detail-content">
+    <h1 style="font-family:'Permanent Marker',cursive;font-size:clamp(2rem,4vw,3rem);letter-spacing:4px;margin-bottom:8px;">STRESS</h1>
+    <p style="color:var(--gray);font-size:0.75rem;letter-spacing:4px;text-transform:uppercase;">Lettering — Illustration</p>
+    <p>Expressive lettering piece exploring the feeling of stress through distorted, organic letterforms contained within a lip-shaped silhouette. Deep red and burgundy tones convey intensity, while the teal starburst creates visual tension.</p>
+  </div>
+</div>
+
+<!-- ============ YOUR CITY YOUR RULES ============ -->
+<div class="detail-overlay" id="detail-yourcity">
+  <div class="detail-close" onclick="closeDetail('yourcity')">✕ CLOSE</div>
+  <div class="detail-hero" style="background:#8B5E3C;"><img src="images/posters/your_city_your_rules.png" alt="Your City Your Rules"></div>
+  <div class="detail-content">
+    <h1 style="font-family:'Permanent Marker',cursive;font-size:clamp(2rem,4vw,3rem);letter-spacing:4px;margin-bottom:8px;">YOUR CITY YOUR RULES</h1>
+    <p style="color:var(--gray);font-size:0.75rem;letter-spacing:4px;text-transform:uppercase;">Lettering</p>
+    <p>A raw lettering piece mixing digital and handwritten typefaces. The dual-font approach reflects the contrast between urban structure and individual expression.</p>
+  </div>
+</div>
+
+<!-- ============ PLACE À LA MUSIQUE ============ -->
+<div class="detail-overlay" id="detail-placemusique">
+  <div class="detail-close" onclick="closeDetail('placemusique')">✕ CLOSE</div>
+  <div class="detail-hero" style="background:#d4c825;"><img src="images/posters/place_musique.png" alt="Place à la Musique"></div>
+  <div class="detail-content">
+    <h1 style="font-family:'Permanent Marker',cursive;font-size:clamp(2rem,4vw,3rem);letter-spacing:4px;margin-bottom:8px;">PLACE À LA MUSIQUE</h1>
+    <p style="color:var(--gray);font-size:0.75rem;letter-spacing:4px;text-transform:uppercase;">Advertising Campaign Project — 2025</p>
+    <p>Poster for a fictional music event created as part of an advertising campaign project. The design imagines a week-long festival at Place des Arts (December 2–8), layering hand-drawn geometric illustrations, dynamic multi-scale typography, and vibrant pink-yellow colorwork to build a believable event identity from scratch.</p>
+  </div>
+</div>
+
+<!-- ============ DÉCOMPOSITIONS ============ -->
+<div class="detail-overlay" id="detail-decompositions">
+  <div class="detail-close" onclick="closeDetail('decompositions')">✕ CLOSE</div>
+  <div class="detail-hero" style="background:#8B3030;"><img src="images/posters/decompositions.png" alt="Décompositions"></div>
+  <div class="detail-content">
+    <h1 style="font-family:'Permanent Marker',cursive;font-size:clamp(2rem,4vw,3rem);letter-spacing:4px;margin-bottom:8px;">DÉCOMPOSITIONS</h1>
+    <p style="color:var(--gray);font-size:0.75rem;letter-spacing:4px;text-transform:uppercase;">Exhibition Poster — 4th Space, Webster Library — November 2025</p>
+    <p>Poster for a 3rd year Communications students pop-up exhibition at Concordia's Webster Library. Technical camera schematics and exploded-view diagrams reference the theme of deconstruction.</p>
+  </div>
+</div>
+
+<!-- ============ FACE À FACE ============ -->
+<div class="detail-overlay" id="detail-faceaface">
+  <div class="detail-close" onclick="closeDetail('faceaface')">✕ CLOSE</div>
+  <div class="detail-hero" style="background:#6a0dad;"><img src="images/posters/face_a_face.png" alt="Face à Face"></div>
+  <div class="detail-content">
+    <h1 style="font-family:'Permanent Marker',cursive;font-size:clamp(2rem,4vw,3rem);letter-spacing:4px;margin-bottom:8px;">FACE À FACE</h1>
+    <p style="color:var(--gray);font-size:0.75rem;letter-spacing:4px;text-transform:uppercase;">Script Pitch — Les Jeux Interuniversitaires de la Communication — 2025</p>
+    <p>Promotional poster created for a script-writing pitch presented at Les Jeux Interuniversitaires de la Communication (JIUC) — an inter-university communications competition. The bold portrait-driven composition and vivid purple ground were designed to command attention in a competitive presentation context.</p>
+  </div>
+</div>
+
+<!-- ============ ALTITUDE (merged: Sports + Vintage) ============ -->
+<div class="detail-overlay" id="detail-altitude">
+  <div class="detail-close" onclick="closeDetail('altitude')">✕ CLOSE</div>
+  <div class="detail-hero" style="background:#888;"><img src="images/logos/altitude_club.png" alt="Altitude"></div>
+  <div class="detail-content">
+    <h1 style="font-family:'Permanent Marker',cursive;font-size:clamp(2rem,4vw,3rem);letter-spacing:4px;margin-bottom:8px;">ALTITUDE</h1>
+    <p style="color:var(--gray);font-size:0.75rem;letter-spacing:4px;text-transform:uppercase;">Logo Design & Brand Identity</p>
+    <p>Full brand identity for Altitude Club — a sports and lifestyle brand. The project includes a primary logo system available in four colour variants, an animated motion identity, and a vintage sub-brand rendered in a knitted tapestry texture.</p>
+
+    <h2>LOGO SYSTEM</h2>
+    <div style="max-width:700px;margin:20px 0;">
+      <img src="images/logos/altitude_club.png" alt="Altitude Club — colour variants" loading="lazy" style="width:100%;border-radius:4px;">
+    </div>
+
+    <h2>MOTION IDENTITY</h2>
+    <div class="video-solo">
+      <video autoplay muted loop playsinline>
+        <source src="images/logos/altitude_animation.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <h2>VINTAGE VARIANT</h2>
+    <div style="max-width:600px;margin:20px 0;">
+      <img src="images/logos/altitude_vintage.png" alt="Altitude Vintage" loading="lazy" style="width:100%;border-radius:4px;">
+    </div>
+    <p>A knitted-texture vintage variant of the Altitude identity. The retro aesthetic revisits the brand through a softer, craft-inspired lens rendered in a pixel-tapestry technique.</p>
+  </div>
+</div>
+
+<!-- ============ RÉSURGENCE ============ -->
+<div class="detail-overlay" id="detail-resurgence">
+  <div class="detail-close" onclick="closeDetail('resurgence')">✕ CLOSE</div>
+  <div class="detail-hero" style="background:#0d0d0d;"><img src="images/logos/resurgence.png" alt="Résurgence"></div>
+  <div class="detail-content">
+    <h1 style="font-family:'Permanent Marker',cursive;font-size:clamp(2rem,4vw,3rem);letter-spacing:4px;margin-bottom:8px;">RÉSURGENCE</h1>
+    <p style="color:var(--gray);font-size:0.75rem;letter-spacing:4px;text-transform:uppercase;">Typography Design</p>
+    <p>The concept is literal: the text <em>surges</em> from the underlying grid. The bold serif letterforms break free from their structural framework, emerging with weight and presence — making the name and the design concept inseparable. Résurgence (resurgence) is not just what it says; it is what it does.</p>
+  </div>
+</div>
+
+<!-- ============ SYMBOL (Concordia) ============ -->
+<div class="detail-overlay" id="detail-logosymbol">
+  <div class="detail-close" onclick="closeDetail('logosymbol')">✕ CLOSE</div>
+  <div class="detail-hero" style="background:#e8922a;"><img src="images/logos/symbol.png" alt="Symbol"></div>
+  <div class="detail-content">
+    <h1 style="font-family:'Permanent Marker',cursive;font-size:clamp(2rem,4vw,3rem);letter-spacing:4px;margin-bottom:8px;">SYMBOL</h1>
+    <p style="color:var(--gray);font-size:0.75rem;letter-spacing:4px;text-transform:uppercase;">Logo Concept — Concordia University</p>
+    <p>Logo concept for Concordia University. The geometric shapes form the letters C-O-N-C-O, creating a minimalist symbol that captures the university's identity through clever negative space. The bordeaux-on-orange palette references both institutional heritage and contemporary energy.</p>
+  </div>
+</div>
+
+<!-- ============ IKM ============ -->
+<div class="detail-overlay" id="detail-ikmlogo">
+  <div class="detail-close" onclick="closeDetail('ikmlogo')">✕ CLOSE</div>
+  <div class="detail-hero" style="background:#5a3c2a;"><img src="images/logos/ofm.png" alt="IKM"></div>
+  <div class="detail-content">
+    <h1 style="font-family:'Permanent Marker',cursive;font-size:clamp(2rem,4vw,3rem);letter-spacing:4px;margin-bottom:8px;">IKM</h1>
+    <p style="color:var(--gray);font-size:0.75rem;letter-spacing:4px;text-transform:uppercase;">Logo Design — Graffiti Identity</p>
+    <p>Graffiti-influenced logo design with an organic, textured sphere encasing bold hand-lettered initials. Available in warm earth and dark ink variants.</p>
+    <!-- Dark variant displayed on a light card so the transparent PNG reads correctly -->
+    <div style="max-width:400px;margin:20px 0;background:#f0ebe0;border-radius:4px;padding:20px;">
+      <img src="images/logos/ofm_dark.png" alt="IKM dark variant" loading="lazy" style="width:100%;">
+    </div>
+  </div>
+</div>
+
+<!-- ============ ÉCO FIS ============ -->
+<div class="detail-overlay" id="detail-ecofis">
+  <div class="detail-close" onclick="closeDetail('ecofis')">✕ CLOSE</div>
+  <div class="detail-hero" style="background:#f0ebe0;"><img src="images/logos/eco_fis.png" alt="ÉCO FIS"></div>
+  <div class="detail-content">
+    <h1 style="font-family:'Permanent Marker',cursive;font-size:clamp(2rem,4vw,3rem);letter-spacing:4px;margin-bottom:8px;">ÉCO FIS</h1>
+    <p style="color:var(--gray);font-size:0.75rem;letter-spacing:4px;text-transform:uppercase;">Logo Design</p>
+    <p>Logo design for ÉCO FIS. Bold condensed typography paired with a hand-drawn leaf illustration, conveying a balance between environmental values and strong brand presence.</p>
+  </div>
+</div>
+
+<!-- ============ FALL ============ -->
+<div class="detail-overlay" id="detail-falllogo">
+  <div class="detail-close" onclick="closeDetail('falllogo')">✕ CLOSE</div>
+  <div class="detail-hero" style="background:#555;"><img src="images/logos/fall.png" alt="FALL"></div>
+  <div class="detail-content">
+    <h1 style="font-family:'Permanent Marker',cursive;font-size:clamp(2rem,4vw,3rem);letter-spacing:4px;margin-bottom:8px;">FALL</h1>
+    <p style="color:var(--gray);font-size:0.75rem;letter-spacing:4px;text-transform:uppercase;">Logo Design — Prototype</p>
+    <p>Expressive typographic logo combining gestural brush strokes with a glinting gold star accent, creating a dynamic contrast between rawness and refinement.</p>
+  </div>
+</div>
+
+<!-- ============ GRAPHIC DESIGN LOGO ============ -->
+<div class="detail-overlay" id="detail-graphicdesignlogo">
+  <div class="detail-close" onclick="closeDetail('graphicdesignlogo')">✕ CLOSE</div>
+  <div class="detail-hero" style="background:#f0ebe0;"><img src="images/logos/graphic_design.png" alt="Graphic Design"></div>
+  <div class="detail-content">
+    <h1 style="font-family:'Permanent Marker',cursive;font-size:clamp(2rem,4vw,3rem);letter-spacing:4px;margin-bottom:8px;">GRAPHIC DESIGN</h1>
+    <p style="color:var(--gray);font-size:0.75rem;letter-spacing:4px;text-transform:uppercase;">Logo Design — Personal Branding</p>
+    <p>A self-referential logo encasing "GRAPHIC DESIGN" within a circular form bisected by a horizontal axis — merging identity, discipline, and geometry into one mark.</p>
+  </div>
+</div>
+
+<!-- ============ HK GORILLAS ============ -->
+<div class="detail-overlay" id="detail-hkgorillas">
+  <div class="detail-close" onclick="closeDetail('hkgorillas')">✕ CLOSE</div>
+  <div class="detail-hero" style="background:#f0ebe0;"><img src="images/logos/hk_gorillas.png" alt="HK Gorillas"></div>
+  <div class="detail-content">
+    <h1 style="font-family:'Permanent Marker',cursive;font-size:clamp(2rem,4vw,3rem);letter-spacing:4px;margin-bottom:8px;">HK GORILLAS</h1>
+    <p style="color:var(--gray);font-size:0.75rem;letter-spacing:4px;text-transform:uppercase;">Sports Logo Design</p>
+    <p>Sports team logo for the Hong Kong Gorillas basketball club. A globe/basketball hybrid mark anchored by bold team typography, with an energetic tri-colour palette.</p>
+  </div>
+</div>
+
+<!-- ============ UNDECIDED ============ -->
+<div class="detail-overlay" id="detail-undecided">
+  <div class="detail-close" onclick="closeDetail('undecided')">✕ CLOSE</div>
+  <div class="detail-hero" style="background:#f0faf8;"><img src="images/logos/undecided.png" alt="Undecided"></div>
+  <div class="detail-content">
+    <h1 style="font-family:'Permanent Marker',cursive;font-size:clamp(2rem,4vw,3rem);letter-spacing:4px;margin-bottom:8px;">UNDECIDED</h1>
+    <p style="color:var(--gray);font-size:0.75rem;letter-spacing:4px;text-transform:uppercase;">Logo Design</p>
+    <p>Logo designed for a friend's blog project. The concept was developed but ultimately not used. The design plays on the word itself — "UNDECIDED" is struck through to reveal "DECIDED" beneath, while a figure tumbles headfirst into uncertainty.</p>
+  </div>
+</div>
+
+<!-- ============ LAVIEPOTABLE ============ -->
+<div class="detail-overlay" id="detail-laviepotable">
+  <div class="detail-close" onclick="closeDetail('laviepotable')">✕ CLOSE</div>
+  <div class="detail-hero" style="background:#1a1a1a;">
+    <img src="images/editorial/laviepotable_zine.png" alt="Laviepotable">
+  </div>
+  <div class="detail-content">
+    <h1 style="font-family:'Permanent Marker',cursive;font-size:clamp(2rem,4vw,3rem);letter-spacing:4px;margin-bottom:8px;">LAVIEPOTABLE</h1>
+    <p style="color:var(--gray);font-size:0.75rem;letter-spacing:4px;text-transform:uppercase;">Zine Design — Collaborative Project</p>
+    <p>Zine designed for the artistic project Laviepotable. A multi-page editorial piece blending photography, hand-drawn illustration, comic strips, and expressive typography in a bold black-and-white graphic style.</p>
+    <div class="detail-gallery" style="grid-template-columns:1fr;">
+      <img src="images/editorial/laviepotable_intro.png" alt="Zine — Intro & outro" loading="lazy">
+      <img src="images/editorial/laviepotable_zine2.png" alt="Zine — 2-page spread" loading="lazy">
+      <img src="images/editorial/laviepotable_zine.png" alt="Zine — 4-page spread" loading="lazy">
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================
+     SCRIPTS
+     ================================================================ -->
+<script>
+// Fixed nav on scroll
+const fixedNav = document.getElementById('fixedNav');
+window.addEventListener('scroll', () => {
+  fixedNav.classList.toggle('visible', window.scrollY > window.innerHeight * 0.8);
+});
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Fade-in on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// Detail overlays
+function openDetail(id) {
+  const el = document.getElementById('detail-' + id);
+  if (el) {
+    el.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    if (id === 'newyork') startNYAnimation();
+  }
+}
+function closeDetail(id) {
+  const el = document.getElementById('detail-' + id);
+  if (el) {
+    el.classList.remove('open');
+    document.body.style.overflow = '';
+    if (id === 'newyork') stopNYAnimation();
+  }
+}
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.detail-overlay.open').forEach(el => {
+      el.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+    stopNYAnimation();
+  }
+});
+
+// NY boomerang animation — 10 frames (0–9)
+let nyInterval = null;
+function startNYAnimation() {
+  const frames = document.querySelectorAll('#nyAnim .ny-frame');
+  if (!frames.length) return;
+  let i = 0, dir = 1;
+  const total = frames.length;
+  nyInterval = setInterval(() => {
+    frames.forEach(f => f.classList.remove('active'));
+    frames[i].classList.add('active');
+    i += dir;
+    if (i >= total - 1) dir = -1;
+    if (i <= 0) dir = 1;
+  }, 400);
+}
+function stopNYAnimation() {
+  if (nyInterval) { clearInterval(nyInterval); nyInterval = null; }
+}
+</script>
+
+</body>
+</html>
